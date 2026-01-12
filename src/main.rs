@@ -25,12 +25,15 @@ async fn main() {
     }
 
     let path_buf: PathBuf = PathBuf::from(&dest);
+
     let absolute_dest = path::absolute(&path_buf).expect("could not create absolute path");
     let absolute_path = absolute_dest.display();
 
+    // debug
     println!("debug: absolute path: {}", &absolute_path);
     println!("saving {} to {}", url, &absolute_path);
 
+    // get
     let resp = reqwest::get(url.to_string())
         .await
         .expect("could not complete request");
@@ -38,5 +41,6 @@ async fn main() {
     let body = resp.text().await.expect("response body invalid");
     let mut out = File::create(&dest).expect("could not create file");
 
+    // save file
     io::copy(&mut body.as_bytes(), &mut out).expect("failed to copy content");
 }
