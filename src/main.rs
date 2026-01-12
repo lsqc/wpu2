@@ -6,8 +6,13 @@ use std::path::PathBuf;
 use std::process;
 use std::env;
 
-#[tokio::main]
+// see README.md
+// 1st version:
+// https://github.com/lsqc/wallpaperutil [C]
+
+#[tokio::main] // required cuz main is async
 async fn main() {
+
     let args: Vec<String> = env::args().collect();
 
     let mut url: String = String::new();
